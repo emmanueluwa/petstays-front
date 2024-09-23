@@ -2,8 +2,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import AddPlace from "./pages/AddPlace";
+import { useAppContext } from "./contexts/AppContext";
 
 const AppRoutes = () => {
+  const { isLoggedIn } = useAppContext();
+
   return (
     <Routes>
       <Route
@@ -38,6 +42,19 @@ const AppRoutes = () => {
           </Layout>
         }
       />
+
+      {isLoggedIn && (
+        <>
+          <Route
+            path="/add-place"
+            element={
+              <Layout>
+                <AddPlace />
+              </Layout>
+            }
+          ></Route>
+        </>
+      )}
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
