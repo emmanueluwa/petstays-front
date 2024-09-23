@@ -3,6 +3,7 @@ import * as apiClient from "../api/api-client";
 import { useMutation, useQueryClient } from "react-query";
 import { useAppContext } from "../contexts/AppContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export type LoginFormData = {
   email: string;
@@ -68,7 +69,13 @@ const Login = () => {
           <span className="text-red-500">{errors.password.message}</span>
         )}
       </label>
-      <span>
+      <span className="flex items-center justify-between">
+        <span className="text-sm">
+          Not got an account?{" "}
+          <Link className="underline" to="/register">
+            Create an account here
+          </Link>
+        </span>
         <button
           type="submit"
           className="bg-teal-500 text-white p-2 font-bold hover:bg-teal-400 text-xl"
