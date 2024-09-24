@@ -10,8 +10,20 @@ export const placeTypes = [
   "Cabin",
   "Beach Resort",
   "Golf Resort",
-  "Motel",
+  "Penthouse",
   "All Inclusive",
-  "Pet Friendly",
   "Self Catering",
+];
+
+export const placeFacilities = [
+  "Free WiFi",
+  "Snooker Table",
+  "Balcony",
+  "Parking",
+  "Airport Shuttle",
+  "Family Rooms",
+  "Non-Smoking Rooms",
+  "Outdoor Pool",
+  "Spa",
+  "Fitness Center",
 ];
