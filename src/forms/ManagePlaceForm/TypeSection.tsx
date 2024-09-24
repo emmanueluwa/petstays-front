@@ -1,8 +1,13 @@
 import { useFormContext } from "react-hook-form";
 import { placeTypes } from "../../config/place-options-config";
+import { PlaceFormData } from "./ManagePlaceForm";
 
 const TypeSection = () => {
-  const { register, watch } = useFormContext();
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext<PlaceFormData>();
 
   //storing changes
   const typeWatch = watch("type");
@@ -29,6 +34,11 @@ const TypeSection = () => {
           </label>
         ))}
       </div>
+      {errors.type && (
+        <span className="text-red-500 text-sm font-bold">
+          {errors.type.message}
+        </span>
+      )}
     </div>
   );
 };
