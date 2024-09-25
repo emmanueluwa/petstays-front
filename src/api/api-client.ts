@@ -1,7 +1,8 @@
+import ManagePlaceForm from "../forms/ManagePlaceForm/ManagePlaceForm";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const registerRequest = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -59,4 +60,18 @@ export const logoutRequest = async () => {
   if (!response.ok) {
     throw new Error("Error");
   }
+};
+
+export const addMyPlaceRequest = async (placeFormData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-places`, {
+    method: "POST",
+    credentials: "include",
+    body: placeFormData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add place");
+  }
+
+  return response.json();
 };

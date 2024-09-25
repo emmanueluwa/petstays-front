@@ -19,16 +19,57 @@ export type PlaceFormData = {
   childCount: number;
 };
 
-const ManagePlaceForm = () => {
+type Props = {
+  onSave: (PlaceFormData: FormData) => void;
+  isLoading: boolean;
+};
+
+const ManagePlaceForm = ({ onSave, isLoading }: Props) => {
   const formMethods = useForm<PlaceFormData>();
+  const { handleSubmit } = formMethods;
+
+  const onSubmit = handleSubmit((formDataJson: PlaceFormData) => {
+    const formData = new FormData();
+
+    formData.append("name", formDataJson.name);
+    formData.append("city", formDataJson.city);
+    formData.append("country", formDataJson.country);
+    formData.append("description", formDataJson.description);
+    formData.append("type", formDataJson.type);
+    formData.append("pricePerNight", formDataJson.pricePerNight.toString());
+    formData.append("starRating", formDataJson.starRating.toString());
+    formData.append("adultCount", formDataJson.adultCount.toString());
+    formData.append("childCount", formDataJson.childCount.toString());
+
+    formDataJson.facilities.forEach((facility, index) => {
+      formData.append(`facilities[${index}]`, facility);
+    });
+
+    //convert FileList type to array to use forEach loop
+    Array.from(formDataJson.imageFiles).forEach((imageFile) => {
+      formData.append(`imageFiles`, imageFile);
+    });
+
+    onSave(formData);
+  });
+
   return (
     <FormProvider {...formMethods}>
-      <form className="flex flex-col gap-10">
+      <form className="flex flex-col gap-10" onSubmit={onSubmit}>
         <DetailsSection />
         <TypeSection />
         <FacilitiesSection />
         <GuestsSection />
         <ImagesSection />
+        <span className="flex justify-end">
+          <button
+            disabled={isLoading}
+            type="submit"
+            className="bg-teal-500 text-white p-2 font-bold hover:bg-teal-400 text-xl disabled:bg-gray-500"
+          >
+            {isLoading ? "Saving..." : "Save"}
+          </button>
+        </span>
       </form>
     </FormProvider>
   );
