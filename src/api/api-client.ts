@@ -102,3 +102,20 @@ export const fetchMyPlaceByIdRequest = async (
 
   return response.json();
 };
+
+export const updateMyPlaceById = async (placeFormData: FormData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/my-places/${placeFormData.get("placeId")}`,
+    {
+      method: "PUT",
+      body: placeFormData,
+      credentials: "include",
+    }
+  );
+
+  if (!response) {
+    throw new Error("failed to update place");
+  }
+
+  return response.json();
+};
