@@ -4,6 +4,8 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
+import { PlaceType } from "../../config/place-options-config";
+import { useEffect } from "react";
 
 export type PlaceFormData = {
   name: string;
@@ -20,13 +22,18 @@ export type PlaceFormData = {
 };
 
 type Props = {
+  place: PlaceType;
   onSave: (PlaceFormData: FormData) => void;
   isLoading: boolean;
 };
 
-const ManagePlaceForm = ({ onSave, isLoading }: Props) => {
+const ManagePlaceForm = ({ onSave, isLoading, place }: Props) => {
   const formMethods = useForm<PlaceFormData>();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
+
+  useEffect(() => {
+    reset(place);
+  }, [place, reset]);
 
   const onSubmit = handleSubmit((formDataJson: PlaceFormData) => {
     const formData = new FormData();

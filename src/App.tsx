@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import AddPlace from "./pages/AddPlace";
 import { useAppContext } from "./contexts/AppContext";
 import MyPlaces from "./pages/MyPlaces";
+import EditPlace from "./pages/EditPlace";
 
 const AppRoutes = () => {
   const { isLoggedIn } = useAppContext();
@@ -59,6 +60,14 @@ const AppRoutes = () => {
             element={
               <Layout>
                 <MyPlaces />
+              </Layout>
+            }
+          ></Route>
+          <Route
+            path="/edit-place/:placeId"
+            element={
+              <Layout>
+                <EditPlace />
               </Layout>
             }
           ></Route>

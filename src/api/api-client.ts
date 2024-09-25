@@ -88,3 +88,17 @@ export const fetchMyPlacesRequest = async (): Promise<PlaceType[]> => {
 
   return response.json();
 };
+
+export const fetchMyPlaceByIdRequest = async (
+  placeId: string
+): Promise<PlaceType> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-places/${placeId}`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching places");
+  }
+
+  return response.json();
+};
