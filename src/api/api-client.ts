@@ -1,4 +1,3 @@
-import ManagePlaceForm from "../forms/ManagePlaceForm/ManagePlaceForm";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
 
