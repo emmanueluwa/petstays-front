@@ -103,7 +103,7 @@ export const fetchMyPlaceByIdRequest = async (
   return response.json();
 };
 
-export const updateMyPlaceById = async (placeFormData: FormData) => {
+export const updateMyPlaceByIdRequest = async (placeFormData: FormData) => {
   const response = await fetch(
     `${API_BASE_URL}/api/my-places/${placeFormData.get("placeId")}`,
     {
