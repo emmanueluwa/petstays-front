@@ -1,3 +1,4 @@
+import { PlaceType } from "../config/place-options-config";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
 
@@ -71,6 +72,18 @@ export const addMyPlaceRequest = async (placeFormData: FormData) => {
 
   if (!response.ok) {
     throw new Error("Failed to add place");
+  }
+
+  return response.json();
+};
+
+export const fetchMyPlacesRequest = async (): Promise<PlaceType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/my-places`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching places");
   }
 
   return response.json();
