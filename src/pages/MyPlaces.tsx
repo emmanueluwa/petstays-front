@@ -12,7 +12,20 @@ const MyPlaces = () => {
   );
 
   if (!placeData) {
-    return <span>No Places found</span>;
+    return (
+      <div className="space-y-5">
+        <span className="flex justify-between">
+          <h1 className="text-3xl font-bold">My Places</h1>
+          <Link
+            to="/add-place"
+            className="flex bg-teal-500 text-white text-xl font-bold p-2 hover:bg-teal-400"
+          >
+            Add Place
+          </Link>
+        </span>
+        <span>No Places found</span>
+      </div>
+    );
   }
 
   return (
