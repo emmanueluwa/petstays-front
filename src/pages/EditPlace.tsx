@@ -2,9 +2,11 @@ import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import * as apiClient from "../api/api-client";
 import ManagePlaceForm from "../forms/ManagePlaceForm/ManagePlaceForm";
+import { useAppContext } from "../contexts/AppContext";
 
 const EditPlace = () => {
   const { placeId } = useParams();
+  const { showToast } = useAppContext();
 
   const { data: place } = useQuery(
     "fetchMyPlaceById",
@@ -20,8 +22,12 @@ const EditPlace = () => {
   const { mutate, isLoading } = useMutation(
     apiClient.updateMyPlaceByIdRequest,
     {
-      onSuccess: () => {},
-      onError: () => {},
+      onSuccess: () => {
+        showToast({ message: "Place saved", type: "SUCCESS" });
+      },
+      onError: () => {
+        showToast({ message: "Error saving place", type: "ERROR" });
+      },
     }
   );
 
