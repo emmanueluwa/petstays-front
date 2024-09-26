@@ -1,6 +1,7 @@
 import { PlaceType } from "../config/place-options-config";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
+import { PlaceSearchResponse, SearchParams } from "../utils/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
@@ -115,6 +116,29 @@ export const updateMyPlaceByIdRequest = async (placeFormData: FormData) => {
 
   if (!response) {
     throw new Error("failed to update place");
+  }
+
+  return response.json();
+};
+
+export const searchPlacesRequest = async (
+  searchParams: SearchParams
+): Promise<PlaceSearchResponse> => {
+  const queryParams = new URLSearchParams();
+
+  queryParams.append("destination", searchParams.destination || "");
+  queryParams.append("checkIn", searchParams.checkIn || "");
+  queryParams.append("checkOut", searchParams.checkOut || "");
+  queryParams.append("adultCount", searchParams.adultCount || "");
+  queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
+
+  const response = await fetch(
+    `${API_BASE_URL}/api/places/search?${queryParams}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching places");
   }
 
   return response.json();
