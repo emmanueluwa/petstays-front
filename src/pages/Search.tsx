@@ -5,12 +5,14 @@ import { useState } from "react";
 import SearchResultsCard from "../components/SearchResultsCard";
 import Pagination from "../components/Pagination";
 import StarRatingFilter from "../components/StarRatingFilter";
+import PlaceTypesFilter from "../components/PlaceTypesFilter";
 
 const Search = () => {
   const search = useSearchContext();
 
   const [page, setPage] = useState<number>(1);
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
+  const [selectedPlaceTypes, setSelectedPlaceTypes] = useState<string[]>([]);
 
   const searchParams = {
     destination: search.destination,
@@ -20,6 +22,7 @@ const Search = () => {
     childCount: search.childCount.toString(),
     page: page.toString(),
     stars: selectedStars,
+    types: selectedPlaceTypes,
   };
 
   const { data: placeData } = useQuery(["searchHotels", searchParams], () =>
@@ -36,6 +39,18 @@ const Search = () => {
     );
   };
 
+  const handleHotelTypeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const placeType = event.target.value;
+
+    setSelectedPlaceTypes((prevPlaceType) =>
+      event.target.checked
+        ? [...prevPlaceType, placeType]
+        : prevPlaceType.filter((pType) => pType !== placeType)
+    );
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
       {/* FILTERS  */}
@@ -47,6 +62,10 @@ const Search = () => {
           <StarRatingFilter
             selectedStars={selectedStars}
             onChange={handleStarsChange}
+          />
+          <PlaceTypesFilter
+            selectedPlaceTypes={selectedPlaceTypes}
+            onChange={handleHotelTypeChange}
           />
         </div>
       </div>
