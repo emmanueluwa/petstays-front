@@ -8,6 +8,7 @@ import StarRatingFilter from "../components/StarRatingFilter";
 import PlaceTypesFilter from "../components/PlaceTypesFilter";
 import FacilitiesFilter from "../components/FacilitiesFilter";
 import PriceFilter from "../components/PriceFilter";
+import SortByFilter from "../components/SortByFilter";
 
 const Search = () => {
   const search = useSearchContext();
@@ -18,6 +19,7 @@ const Search = () => {
   const [selectedPlaceTypes, setSelectedPlaceTypes] = useState<string[]>([]);
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
+  const [sortOption, setSortOption] = useState<string>();
 
   const searchParams = {
     destination: search.destination,
@@ -30,6 +32,7 @@ const Search = () => {
     types: selectedPlaceTypes,
     facilities: selectedFacilities,
     maxPrice: selectedPrice?.toString(),
+    sortOption,
   };
 
   const { data: placeData } = useQuery(["searchHotels", searchParams], () =>
@@ -102,7 +105,12 @@ const Search = () => {
             {placeData?.pagination.total} Places found
             {search.destination ? ` in ${search.destination}` : ""}
           </span>
-          {/* TODO: SORT OPTIONS  */}
+
+          {/* SORT BY FILTER */}
+          <SortByFilter
+            sortOption={sortOption}
+            onChange={(value) => setSortOption(value)}
+          />
         </div>
         {placeData?.data.map((place) => (
           <SearchResultsCard place={place} />
