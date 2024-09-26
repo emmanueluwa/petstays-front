@@ -6,13 +6,18 @@ import SearchResultsCard from "../components/SearchResultsCard";
 import Pagination from "../components/Pagination";
 import StarRatingFilter from "../components/StarRatingFilter";
 import PlaceTypesFilter from "../components/PlaceTypesFilter";
+import FacilitiesFilter from "../components/FacilitiesFilter";
+import PriceFilter from "../components/PriceFilter";
 
 const Search = () => {
   const search = useSearchContext();
 
   const [page, setPage] = useState<number>(1);
+
   const [selectedStars, setSelectedStars] = useState<string[]>([]);
   const [selectedPlaceTypes, setSelectedPlaceTypes] = useState<string[]>([]);
+  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
 
   const searchParams = {
     destination: search.destination,
@@ -23,6 +28,8 @@ const Search = () => {
     page: page.toString(),
     stars: selectedStars,
     types: selectedPlaceTypes,
+    facilities: selectedFacilities,
+    maxPrice: selectedPrice?.toString(),
   };
 
   const { data: placeData } = useQuery(["searchHotels", searchParams], () =>
@@ -51,6 +58,16 @@ const Search = () => {
     );
   };
 
+  const handleFacilityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const facilities = event.target.value;
+
+    setSelectedFacilities((prevFacilities) =>
+      event.target.checked
+        ? [...prevFacilities, facilities]
+        : prevFacilities.filter((facility) => facility !== facilities)
+    );
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
       {/* FILTERS  */}
@@ -66,6 +83,14 @@ const Search = () => {
           <PlaceTypesFilter
             selectedPlaceTypes={selectedPlaceTypes}
             onChange={handleHotelTypeChange}
+          />
+          <FacilitiesFilter
+            selectedFacilities={selectedFacilities}
+            onChange={handleFacilityChange}
+          />
+          <PriceFilter
+            selectedPrice={selectedPrice}
+            onChange={(value?: number) => setSelectedPrice(value)}
           />
         </div>
       </div>
