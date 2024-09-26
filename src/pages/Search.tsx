@@ -3,6 +3,7 @@ import * as apiClient from "../api/api-client";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import SearchResultsCard from "../components/SearchResultsCard";
+import Pagination from "../components/Pagination";
 
 const Search = () => {
   const search = useSearchContext();
@@ -44,6 +45,13 @@ const Search = () => {
         {placeData?.data.map((place) => (
           <SearchResultsCard place={place} />
         ))}
+        <div>
+          <Pagination
+            page={placeData?.pagination.page || 1}
+            pages={placeData?.pagination.pages || 1}
+            onPageChange={(page) => setPage(page)}
+          />
+        </div>
       </div>
     </div>
   );
