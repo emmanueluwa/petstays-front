@@ -153,3 +153,13 @@ export const searchPlacesRequest = async (
 
   return response.json();
 };
+
+export const fetchPlaceByIdRequest = async (placeId: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/places/${placeId}`);
+
+  if (!response.ok) {
+    throw new Error("Error fetching places");
+  }
+
+  return response.json();
+};
