@@ -1,10 +1,21 @@
 import { PlaceType } from "../config/place-options-config";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
-import { PlaceSearchResponse, SearchParams } from "../utils/types";
+import { PlaceSearchResponse, SearchParams, UserType } from "../utils/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+export const fetchCurrentUserRequest = async (): Promise<UserType> => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching user");
+  }
+
+  return response.json();
+};
 
 export const registerRequest = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/users/register`, {
