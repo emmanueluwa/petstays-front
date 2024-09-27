@@ -171,6 +171,15 @@ export const searchPlacesRequest = async (
   return response.json();
 };
 
+export const fetchPlacesRequest = async (): Promise<PlaceType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/places`);
+  if (!response.ok) {
+    throw new Error("Error fetching places");
+  }
+
+  return response.json();
+};
+
 export const fetchPlaceByIdRequest = async (
   placeId: string
 ): Promise<PlaceType> => {
