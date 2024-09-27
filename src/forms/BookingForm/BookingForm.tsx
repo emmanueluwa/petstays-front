@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import { UserType } from "../../utils/types";
+import { useSearchContext } from "../../contexts/SearchContext";
+import { useParams } from "react-router-dom";
 
 type Props = {
   currentUser: UserType;
