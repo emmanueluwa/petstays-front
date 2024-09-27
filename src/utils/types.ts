@@ -30,3 +30,9 @@ export type SearchParams = {
   maxPrice?: string;
   sortOption?: string;
 };
+
+export type PaymentIntentResponse = {
+  paymentIntentId: string;
+  clientSecret: string;
+  totalCost: number;
+};
