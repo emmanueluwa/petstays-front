@@ -40,7 +40,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
     apiClient.createPlaceBookingRequest,
     {
       onSuccess: () => {
-        showToast({ message: "Booking saved", type: "SUCCESS" });
+        showToast({ message: "Booking complete", type: "SUCCESS" });
       },
       onError: () => {
         showToast({ message: "Booking failed", type: "ERROR" });
