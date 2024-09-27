@@ -154,7 +154,9 @@ export const searchPlacesRequest = async (
   return response.json();
 };
 
-export const fetchPlaceByIdRequest = async (placeId: string) => {
+export const fetchPlaceByIdRequest = async (
+  placeId: string
+): Promise<PlaceType> => {
   const response = await fetch(`${API_BASE_URL}/api/places/${placeId}`);
 
   if (!response.ok) {

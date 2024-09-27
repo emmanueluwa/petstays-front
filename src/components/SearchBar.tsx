@@ -24,7 +24,7 @@ const SearchBar = ({}: Props) => {
     search.saveSearchValues(
       destination,
       checkIn,
-      checkIn,
+      checkOut,
       adultCount,
       childCount
     );

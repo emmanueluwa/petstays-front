@@ -7,6 +7,7 @@ import { useAppContext } from "./contexts/AppContext";
 import MyPlaces from "./pages/MyPlaces";
 import EditPlace from "./pages/EditPlace";
 import Search from "./pages/Search";
+import Detail from "./pages/Detail";
 
 const AppRoutes = () => {
   const { isLoggedIn } = useAppContext();
@@ -26,6 +27,14 @@ const AppRoutes = () => {
         element={
           <Layout>
             <Search />
+          </Layout>
+        }
+      />
+      <Route
+        path="/detail/:placeId"
+        element={
+          <Layout>
+            <Detail />
           </Layout>
         }
       />
