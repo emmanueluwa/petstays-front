@@ -9,6 +9,7 @@ import EditPlace from "./pages/EditPlace";
 import Search from "./pages/Search";
 import Detail from "./pages/Detail";
 import Booking from "./pages/Booking";
+import MyBookings from "./pages/MyBookings";
 
 const AppRoutes = () => {
   const { isLoggedIn } = useAppContext();
@@ -81,7 +82,15 @@ const AppRoutes = () => {
                 <MyPlaces />
               </Layout>
             }
-          ></Route>
+          />
+          <Route
+            path="/my-bookings"
+            element={
+              <Layout>
+                <MyBookings />
+              </Layout>
+            }
+          />
           <Route
             path="/edit-place/:placeId"
             element={
@@ -89,7 +98,7 @@ const AppRoutes = () => {
                 <EditPlace />
               </Layout>
             }
-          ></Route>
+          />
         </>
       )}
 

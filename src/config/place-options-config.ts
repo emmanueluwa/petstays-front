@@ -1,3 +1,5 @@
+import { BookingType } from "../utils/types";
+
 export type PlaceType = {
   _id: string;
   userId: string;
@@ -13,6 +15,7 @@ export type PlaceType = {
   starRating: number;
   imageUrls: string[];
   lastUpdated: Date;
+  bookings: BookingType[];
 };
 
 export const placeTypes = [
