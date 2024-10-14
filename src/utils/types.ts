@@ -8,8 +8,31 @@ export type UserType = {
   lastName: string;
 };
 
+export type ListingType = {
+  _id: string;
+  area: string;
+  title: string;
+  price: string;
+  bedrooms: string;
+  bathrooms: string;
+  max_tenants: string;
+  location: string;
+  description: string;
+  images: string[];
+  url: string;
+};
+
 export type PlaceSearchResponse = {
   data: PlaceType[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+};
+
+export type ListingSearchResponse = {
+  data: ListingType[];
   pagination: {
     total: number;
     page: number;
@@ -27,6 +50,15 @@ export type SearchParams = {
   facilities?: string[];
   types?: string[];
   stars?: string[];
+  maxPrice?: string;
+  sortOption?: string;
+};
+
+export type SearchRentParams = {
+  location?: string;
+  bedrooms?: string;
+  bathrooms?: string;
+  page?: string;
   maxPrice?: string;
   sortOption?: string;
 };

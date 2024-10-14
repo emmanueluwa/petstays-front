@@ -3,13 +3,17 @@ import { BookingFormData } from "../forms/BookingForm/BookingForm";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
 import {
+  ListingSearchResponse,
   PaymentIntentResponse,
   PlaceSearchResponse,
   SearchParams,
+  SearchRentParams,
   UserType,
 } from "../utils/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API2_BASE_URL = import.meta.env.VITE_API2_BASE_URL;
+
 // const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const fetchCurrentUserRequest = async (): Promise<UserType> => {
@@ -162,6 +166,30 @@ export const searchPlacesRequest = async (
 
   const response = await fetch(
     `${API_BASE_URL}/api/places/search?${queryParams}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching places");
+  }
+
+  return response.json();
+};
+
+export const searchListingsRequest = async (
+  searchParams: SearchRentParams
+): Promise<ListingSearchResponse> => {
+  const queryParams = new URLSearchParams();
+
+  queryParams.append("location", searchParams.location || "");
+  queryParams.append("bedrooms", searchParams.bedrooms || "");
+  queryParams.append("bathrooms", searchParams.bathrooms || "");
+  queryParams.append("page", searchParams.page || "");
+
+  queryParams.append("maxPrice", searchParams.maxPrice || "");
+  queryParams.append("sortOption", searchParams.sortOption || "");
+
+  const response = await fetch(
+    `${API2_BASE_URL}/api/listings/search?${queryParams}`
   );
 
   if (!response.ok) {

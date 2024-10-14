@@ -11,6 +11,7 @@ import Detail from "./pages/Detail";
 import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
 import Home from "./pages/Home";
+import Renting from "./pages/Renting";
 
 const AppRoutes = () => {
   const { isLoggedIn } = useAppContext();
@@ -30,6 +31,14 @@ const AppRoutes = () => {
         element={
           <Layout>
             <Search />
+          </Layout>
+        }
+      />
+      <Route
+        path="/renting"
+        element={
+          <Layout>
+            <Renting />
           </Layout>
         }
       />
