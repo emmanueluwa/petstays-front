@@ -52,10 +52,23 @@ const Search = () => {
           </span>
 
           {/* SORT BY FILTER */}
-          <SortByFilter
+          <select
+            value={sortOption}
+            onChange={(event) => setSortOption(event.target.value)}
+            className="p-2 border rounded-md"
+          >
+            <option value="">Sort By</option>
+            <option value="pricePerMonthAsc">
+              Price Per Month (low to high)
+            </option>
+            <option value="pricePerMonthDesc">
+              Price Per Month (high to low)
+            </option>
+          </select>
+          {/* <SortByFilter
             sortOption={sortOption}
             onChange={(value) => setSortOption(value)}
-          />
+          /> */}
         </div>
         {listingData?.data.map((listing) => (
           <SearchResultsCard key={listing._id} listing={listing} />

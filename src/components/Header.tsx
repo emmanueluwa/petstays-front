@@ -15,12 +15,6 @@ const Header = () => {
             <>
               <Link
                 className="flex items-center text-white px-3 font-bold hover:bg-teal-400"
-                to="/renting"
-              >
-                Renting
-              </Link>
-              <Link
-                className="flex items-center text-white px-3 font-bold hover:bg-teal-400"
                 to="/my-bookings"
               >
                 My Bookings
@@ -35,12 +29,6 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link
-                to="/renting"
-                className="flex items-center bg-white text-teal-400 px-3 font-bold hover:bg-teal-900"
-              >
-                Renting
-              </Link>
               <Link
                 to="/login"
                 className="flex items-center bg-white text-teal-400 px-3 font-bold hover:bg-teal-900"
