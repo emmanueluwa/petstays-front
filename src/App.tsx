@@ -26,19 +26,12 @@ const AppRoutes = () => {
           </Layout>
         }
       />
+
       <Route
         path="/search"
         element={
           <Layout>
             <Search />
-          </Layout>
-        }
-      />
-      <Route
-        path="/renting"
-        element={
-          <Layout>
-            <Renting />
           </Layout>
         }
       />

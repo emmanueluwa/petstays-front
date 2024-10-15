@@ -1,9 +1,8 @@
 import { useState, FormEvent } from "react";
-import { useSearchContext } from "../contexts/SearchContext";
 import { MdTravelExplore } from "react-icons/md";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
+import { useSearchContext } from "../contexts/SearchContext";
 
 type Props = {};
 
@@ -11,30 +10,18 @@ const SearchBar = ({}: Props) => {
   const navigate = useNavigate();
   const search = useSearchContext();
 
-  const [destination, setDestination] = useState<string>(search.destination);
-  const [checkIn, setCheckIn] = useState<Date>(search.checkIn);
-  const [checkOut, setCheckOut] = useState<Date>(search.checkOut);
-  const [adultCount, setAdultCount] = useState<number>(search.adultCount);
-  const [childCount, setChildCount] = useState<number>(search.childCount);
+  const [location, setLocation] = useState<string>(search.location);
+  const [bedrooms, setBedrooms] = useState<string>(search.bedrooms);
+  const [bathrooms, setBathrooms] = useState<string>(search.bathrooms);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     //take values from local state and save them to global state
-    search.saveSearchValues(
-      destination,
-      checkIn,
-      checkOut,
-      adultCount,
-      childCount
-    );
+    search.saveSearchValues(location, bedrooms, bathrooms);
 
     navigate("/search");
   };
-
-  const minDate = new Date();
-  const maxDate = new Date();
-  maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   return (
     <form
@@ -46,62 +33,34 @@ const SearchBar = ({}: Props) => {
         <input
           placeholder="Where to?"
           className="text-md w-full focus:outline-none"
-          value={destination}
-          onChange={(event) => setDestination(event.target.value)}
+          value={location}
+          onChange={(event) => setLocation(event.target.value)}
         />
       </div>
 
       <div className="flex bg-white px-2 py-1 gap-2 ">
         <label className="items-center flex">
-          Adults:
+          Bedrooms:
           <input
             className="w-full p-1 focus:outline-none font-bold"
             type="number"
             min={1}
-            max={20}
-            value={adultCount}
-            onChange={(event) => setAdultCount(parseInt(event.target.value))}
+            max={12}
+            value={bedrooms}
+            onChange={(event) => setBedrooms(event.target.value)}
           ></input>
         </label>
         <label className="items-center flex">
-          Children:
+          Bathrooms:
           <input
             className="w-full p-1 focus:outline-none font-bold"
             type="number"
             min={0}
-            max={20}
-            value={childCount}
-            onChange={(event) => setChildCount(parseInt(event.target.value))}
+            max={10}
+            value={bedrooms}
+            onChange={(event) => setBathrooms(event.target.value)}
           ></input>
         </label>
-      </div>
-      <div className="">
-        <DatePicker
-          selected={checkIn}
-          onChange={(date) => setCheckIn(date as Date)}
-          selectsStart
-          startDate={checkIn}
-          endDate={checkOut}
-          minDate={minDate}
-          maxDate={maxDate}
-          placeholderText="Check-in Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-full"
-        />
-      </div>
-      <div className="">
-        <DatePicker
-          selected={checkOut}
-          onChange={(date) => setCheckOut(date as Date)}
-          selectsStart
-          startDate={checkIn}
-          endDate={checkOut}
-          minDate={minDate}
-          maxDate={maxDate}
-          placeholderText="Check-out Date"
-          className="min-w-full bg-white p-2 focus:outline-none"
-          wrapperClassName="min-w-full"
-        />
       </div>
       <div className="flex gap-1">
         <button className="w-2/3 bg-teal-800 text-white h-full p-2 font-bold text-xl hover:bg-teal-600">

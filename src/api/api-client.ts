@@ -4,6 +4,7 @@ import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
 import {
   ListingSearchResponse,
+  ListingType,
   PaymentIntentResponse,
   PlaceSearchResponse,
   SearchParams,
@@ -201,6 +202,15 @@ export const searchListingsRequest = async (
 
 export const fetchPlacesRequest = async (): Promise<PlaceType[]> => {
   const response = await fetch(`${API_BASE_URL}/api/places`);
+  if (!response.ok) {
+    throw new Error("Error fetching places");
+  }
+
+  return response.json();
+};
+
+export const fetchListingsRequest = async (): Promise<ListingType[]> => {
+  const response = await fetch(`${API2_BASE_URL}/api/listings`);
   if (!response.ok) {
     throw new Error("Error fetching places");
   }

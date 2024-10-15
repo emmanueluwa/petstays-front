@@ -4,72 +4,29 @@ import { useQuery } from "react-query";
 import { useState } from "react";
 import SearchResultsCard from "../components/SearchResultsCard";
 import Pagination from "../components/Pagination";
-import StarRatingFilter from "../components/StarRatingFilter";
-import PlaceTypesFilter from "../components/PlaceTypesFilter";
-import FacilitiesFilter from "../components/FacilitiesFilter";
-import PriceFilter from "../components/PriceFilter";
 import SortByFilter from "../components/SortByFilter";
+import RentFilter from "../components/RentFilter";
 
 const Search = () => {
   const search = useSearchContext();
 
   const [page, setPage] = useState<number>(1);
 
-  const [selectedStars, setSelectedStars] = useState<string[]>([]);
-  const [selectedPlaceTypes, setSelectedPlaceTypes] = useState<string[]>([]);
-  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
   const [sortOption, setSortOption] = useState<string>();
 
   const searchParams = {
-    destination: search.destination,
-    checkIn: search.checkIn.toISOString(),
-    checkOut: search.checkOut.toISOString(),
-    adultCount: search.adultCount.toString(),
-    childCount: search.childCount.toString(),
+    location: search.location,
+    bedrooms: search.bedrooms.toString(),
+    bathrooms: search.bathrooms.toString(),
     page: page.toString(),
-    stars: selectedStars,
-    types: selectedPlaceTypes,
-    facilities: selectedFacilities,
     maxPrice: selectedPrice?.toString(),
     sortOption,
   };
 
-  const { data: placeData } = useQuery(["searchHotels", searchParams], () =>
-    apiClient.searchPlacesRequest(searchParams)
+  const { data: listingData } = useQuery(["searchListings", searchParams], () =>
+    apiClient.searchListingsRequest(searchParams)
   );
-
-  const handleStarsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const starRating = event.target.value;
-
-    setSelectedStars((prevStars) =>
-      event.target.checked
-        ? [...prevStars, starRating]
-        : prevStars.filter((star) => star !== starRating)
-    );
-  };
-
-  const handleHotelTypeChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const placeType = event.target.value;
-
-    setSelectedPlaceTypes((prevPlaceType) =>
-      event.target.checked
-        ? [...prevPlaceType, placeType]
-        : prevPlaceType.filter((pType) => pType !== placeType)
-    );
-  };
-
-  const handleFacilityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const facilities = event.target.value;
-
-    setSelectedFacilities((prevFacilities) =>
-      event.target.checked
-        ? [...prevFacilities, facilities]
-        : prevFacilities.filter((facility) => facility !== facilities)
-    );
-  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
@@ -79,19 +36,7 @@ const Search = () => {
           <h3 className="text-lg font-semibold border-b border-slate-300 pb-5">
             Filter by:
           </h3>
-          <StarRatingFilter
-            selectedStars={selectedStars}
-            onChange={handleStarsChange}
-          />
-          <PlaceTypesFilter
-            selectedPlaceTypes={selectedPlaceTypes}
-            onChange={handleHotelTypeChange}
-          />
-          <FacilitiesFilter
-            selectedFacilities={selectedFacilities}
-            onChange={handleFacilityChange}
-          />
-          <PriceFilter
+          <RentFilter
             selectedPrice={selectedPrice}
             onChange={(value?: number) => setSelectedPrice(value)}
           />
@@ -102,8 +47,8 @@ const Search = () => {
       <div className="flex flex-col gap-5">
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold">
-            {placeData?.pagination.total} Places found
-            {search.destination ? ` in ${search.destination}` : ""}
+            {listingData?.pagination.total} Places found
+            {search.location ? ` in ${search.location}` : ""}
           </span>
 
           {/* SORT BY FILTER */}
@@ -112,13 +57,13 @@ const Search = () => {
             onChange={(value) => setSortOption(value)}
           />
         </div>
-        {placeData?.data.map((place) => (
-          <SearchResultsCard place={place} />
+        {listingData?.data.map((listing) => (
+          <SearchResultsCard key={listing._id} listing={listing} />
         ))}
         <div>
           <Pagination
-            page={placeData?.pagination.page || 1}
-            pages={placeData?.pagination.pages || 1}
+            page={listingData?.pagination.page || 1}
+            pages={listingData?.pagination.pages || 1}
             onPageChange={(page) => setPage(page)}
           />
         </div>

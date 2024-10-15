@@ -1,30 +1,34 @@
 import { useQuery } from "react-query";
 import * as apiClient from "../api/api-client";
 import LatestPlacesCard from "../components/LatestPlacesCard";
+import SearchBar from "../components/SearchBar";
+import LatestListingsCard from "../components/LatestListingsCard";
 
 const Home = () => {
-  const { data: places } = useQuery("fetchQuery", () =>
-    apiClient.fetchPlacesRequest()
+  const { data: listings } = useQuery("fetchQuery", () =>
+    apiClient.fetchListingsRequest()
   );
 
-  const topRowPlaces = places?.slice(0, 2) || [];
-  const bottomRowPlaces = places?.slice(2) || [];
+  const topRowPlaces = listings?.slice(0, 2) || [];
+  const bottomRowPlaces = listings?.slice(2) || [];
 
   return (
-    <div className="space-y-3">
-      <h2 className="text-3xl font-bold">Latest Places</h2>
-      <p>Most recent destinations added by members of the community</p>
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-        {topRowPlaces.map((place) => (
-          <LatestPlacesCard place={place} />
-        ))}
+    <>
+      <div className="space-y-3">
+        <h2 className="text-3xl font-bold">Latest Places</h2>
+        <p>Most recent destinations added by members of the community</p>
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+          {topRowPlaces.map((listing) => (
+            <LatestListingsCard key={listing._id} listing={listing} />
+          ))}
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {bottomRowPlaces.map((listing) => (
+            <LatestListingsCard key={listing._id} listing={listing} />
+          ))}
+        </div>
       </div>
-      <div className="grid md:grid-cols-3 gap-4">
-        {bottomRowPlaces.map((place) => (
-          <LatestPlacesCard place={place} />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 

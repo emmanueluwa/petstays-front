@@ -1,18 +1,14 @@
 import React, { useContext, useState } from "react";
 
 type SearchContext = {
-  destination: string;
-  checkIn: Date;
-  checkOut: Date;
-  adultCount: number;
-  childCount: number;
-  placeId: string;
+  location: string;
+  bedrooms: string;
+  bathrooms: string;
+  listingId: string;
   saveSearchValues: (
-    destination: string,
-    checkIn: Date,
-    checkOut: Date,
-    adultCount: number,
-    childCount: number
+    location: string,
+    bedrooms: string,
+    bathrooms: string
   ) => void;
 };
 
@@ -25,65 +21,49 @@ type SearchContextProviderProps = {
 export const SearchContextProvider = ({
   children,
 }: SearchContextProviderProps) => {
-  const [destination, setDestination] = useState<string>(
-    () => sessionStorage.getItem("destination") || ""
+  const [location, setLocation] = useState<string>(
+    () => sessionStorage.getItem("location") || ""
   );
-  const [checkIn, setCheckIn] = useState<Date>(
-    () =>
-      new Date(sessionStorage.getItem("checkIn") || new Date().toISOString())
+  const [bedrooms, setBedrooms] = useState<string>(
+    () => sessionStorage.getItem("bedrooms") || "1"
   );
-  const [checkOut, setCheckOut] = useState<Date>(
-    () =>
-      new Date(sessionStorage.getItem("checkOut") || new Date().toISOString())
+  const [bathrooms, setBathrooms] = useState<string>(
+    () => sessionStorage.getItem("bathrooms") || "1"
   );
-  const [adultCount, setAdultCount] = useState<number>(() =>
-    parseInt(sessionStorage.getItem("adultCount") || "1")
-  );
-  const [childCount, setChildCount] = useState<number>(() =>
-    parseInt(sessionStorage.getItem("childCount") || "1")
-  );
-  const [placeId, setPlaceId] = useState<string>(
-    () => sessionStorage.getItem("hotelID") || ""
+  const [listingId, setListingId] = useState<string>(
+    () => sessionStorage.getItem("listingId") || ""
   );
 
   const saveSearchValues = (
-    destination: string,
-    checkIn: Date,
-    checkOut: Date,
-    adultCount: number,
-    childCount: number,
-    placeId?: string
+    location: string,
+    bedrooms: string,
+    bathrooms: string,
+    listingId?: string
   ) => {
-    setDestination(destination);
-    setCheckIn(checkIn);
-    setCheckOut(checkOut);
-    setAdultCount(adultCount);
-    setChildCount(childCount);
+    setLocation(location);
+    setBedrooms(bedrooms);
+    setBathrooms(bathrooms);
 
-    if (placeId) {
-      setPlaceId(placeId);
+    if (listingId) {
+      setListingId(listingId);
     }
 
-    sessionStorage.setItem("destination", destination);
-    sessionStorage.setItem("checkIn", checkIn.toISOString());
-    sessionStorage.setItem("checkOut", checkOut.toISOString());
-    sessionStorage.setItem("adultCount", adultCount.toString());
-    sessionStorage.setItem("childCount", childCount.toString());
+    sessionStorage.setItem("location", location);
+    sessionStorage.setItem("bedrooms", bedrooms.toString());
+    sessionStorage.setItem("bathrooms", bathrooms.toString());
 
-    if (placeId) {
-      sessionStorage.setItem("placeId", placeId);
+    if (listingId) {
+      sessionStorage.setItem("listingId", listingId);
     }
   };
 
   return (
     <SearchContext.Provider
       value={{
-        destination,
-        checkIn,
-        checkOut,
-        adultCount,
-        childCount,
-        placeId,
+        location,
+        bedrooms,
+        bathrooms,
+        listingId,
         saveSearchValues,
       }}
     >
