@@ -190,7 +190,7 @@ export const searchListingsRequest = async (
   queryParams.append("sortOption", searchParams.sortOption || "");
 
   const response = await fetch(
-    `${API2_BASE_URL}/api/listings/search?${queryParams}`
+    `${API_BASE_URL}/api/listings/search?${queryParams}`
   );
 
   if (!response.ok) {
@@ -210,7 +210,7 @@ export const fetchPlacesRequest = async (): Promise<PlaceType[]> => {
 };
 
 export const fetchListingsRequest = async (): Promise<ListingType[]> => {
-  const response = await fetch(`${API2_BASE_URL}/api/listings`);
+  const response = await fetch(`${API_BASE_URL}/api/listings`);
   if (!response.ok) {
     throw new Error("Error fetching places");
   }
@@ -233,7 +233,7 @@ export const fetchPlaceByIdRequest = async (
 export const fetchListingByIdRequest = async (
   listingId: string
 ): Promise<ListingType> => {
-  const response = await fetch(`${API2_BASE_URL}/api/listings/${listingId}`);
+  const response = await fetch(`${API_BASE_URL}/api/listings/${listingId}`);
 
   if (!response.ok) {
     throw new Error("Error fetching places");
