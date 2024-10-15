@@ -13,8 +13,8 @@ const SortByFilter = ({ onChange, sortOption }: Props) => {
       className="p-2 border rounded-md"
     >
       <option value="">Sort By</option>
-      <option value="pricePerMonthAsc">Pice per night (low to high)</option>
-      <option value="pricePerMonthDesc">Pice per night (high to low)</option>
+      <option value="pricePerMonthAsc">Pice per month (low to high)</option>
+      <option value="pricePerMonthDesc">Pice per month (high to low)</option>
     </select>
   );
 };

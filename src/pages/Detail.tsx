@@ -40,10 +40,10 @@ const Detail = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
         <div className="border border-slate-300 rounded-sm p-3">
-          {listing.bedrooms}
+          {listing.bedrooms}&nbsp;bedrooms
         </div>
         <div className="border border-slate-300 rounded-sm p-3">
-          {listing.bathrooms}
+          {listing.bathrooms}&nbsp;bathrooms
         </div>
       </div>
 
