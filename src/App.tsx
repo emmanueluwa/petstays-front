@@ -35,7 +35,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/detail/:placeId"
+        path="/detail/:listingId"
         element={
           <Layout>
             <Detail />

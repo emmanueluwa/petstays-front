@@ -26,7 +26,7 @@ const SearchResultsCard = ({ listing }: Props) => {
         <CardContent className="flex flex-col justify-between p-4">
           <div>
             <h2 className="text-2xl font-bold mb-2 hover:text-teal-600 transition-colors">
-              <Link to={`/detail/£{listing._id}`}>{listing.title}</Link>
+              <Link to={`/detail/${listing._id}`}>{listing.title}</Link>
             </h2>
             <p className="text-gray-600 mb-4 line-clamp-3">
               {listing.description}
@@ -45,7 +45,7 @@ const SearchResultsCard = ({ listing }: Props) => {
             </Badge>
             <Badge variant="secondary" className="flex items-center gap-1">
               <BiArea className="w-4 h-4" />
-              {listing.area} sqft
+              {listing.area}
             </Badge>
             <Badge variant="secondary" className="flex items-center gap-1">
               <BiMap className="w-4 h-4" />
@@ -57,7 +57,7 @@ const SearchResultsCard = ({ listing }: Props) => {
               £{listing.price}/month
             </span>
             <Button asChild className="bg-teal-600 hover:bg-teal-700">
-              <Link to={`/detail/£{listing._id}`}>View Details</Link>
+              <Link to={`/detail/${listing._id}`}>View Details</Link>
             </Button>
           </CardFooter>
         </CardContent>

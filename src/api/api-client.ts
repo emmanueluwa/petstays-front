@@ -230,6 +230,18 @@ export const fetchPlaceByIdRequest = async (
   return response.json();
 };
 
+export const fetchListingByIdRequest = async (
+  listingId: string
+): Promise<ListingType> => {
+  const response = await fetch(`${API2_BASE_URL}/api/listings/${listingId}`);
+
+  if (!response.ok) {
+    throw new Error("Error fetching places");
+  }
+
+  return response.json();
+};
+
 export const createPaymentIntentRequest = async (
   placeId: string,
   numberOfNights: string
