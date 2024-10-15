@@ -11,8 +11,8 @@ const SearchBar = ({}: Props) => {
   const search = useSearchContext();
 
   const [location, setLocation] = useState<string>(search.location);
-  const [bedrooms, setBedrooms] = useState<string>(search.bedrooms);
-  const [bathrooms, setBathrooms] = useState<string>(search.bathrooms);
+  const [bedrooms, setBedrooms] = useState<number>(search.bedrooms);
+  const [bathrooms, setBathrooms] = useState<number>(search.bathrooms);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -47,7 +47,7 @@ const SearchBar = ({}: Props) => {
             min={1}
             max={12}
             value={bedrooms}
-            onChange={(event) => setBedrooms(event.target.value)}
+            onChange={(event) => setBedrooms(parseInt(event.target.value))}
           ></input>
         </label>
         <label className="items-center flex">
@@ -57,8 +57,8 @@ const SearchBar = ({}: Props) => {
             type="number"
             min={0}
             max={10}
-            value={bedrooms}
-            onChange={(event) => setBathrooms(event.target.value)}
+            value={bathrooms}
+            onChange={(event) => setBathrooms(parseInt(event.target.value))}
           ></input>
         </label>
       </div>

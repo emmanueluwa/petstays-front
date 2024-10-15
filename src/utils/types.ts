@@ -12,9 +12,9 @@ export type ListingType = {
   _id: string;
   area: string;
   title: string;
-  price: string;
-  bedrooms: string;
-  bathrooms: string;
+  price: number;
+  bedrooms: number;
+  bathrooms: number;
   max_tenants: string;
   location: string;
   description: string;

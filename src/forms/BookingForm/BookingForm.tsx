@@ -17,10 +17,8 @@ export type BookingFormData = {
   firstName: string;
   lastName: string;
   email: string;
-  adultCount: number;
-  childCount: number;
-  checkIn: string;
-  checkOut: string;
+  bedrooms: number;
+  bathrooms: number;
   placeId: string;
   paymentIntentId: string;
   totalCost: number;
@@ -49,18 +47,16 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   );
 
   const { handleSubmit, register } = useForm<BookingFormData>({
-    defaultValues: {
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-      email: currentUser.email,
-      adultCount: search.adultCount,
-      childCount: search.childCount,
-      checkIn: search.checkIn.toISOString(),
-      checkOut: search.checkOut.toISOString(),
-      placeId: placeId,
-      totalCost: paymentIntent.totalCost,
-      paymentIntentId: paymentIntent.paymentIntentId,
-    },
+    // defaultValues: {
+    //   firstName: currentUser.firstName,
+    //   lastName: currentUser.lastName,
+    //   email: currentUser.email,
+    //   bedrooms: search.bedrooms,
+    //   bathrooms: search.bathrooms,
+    //   placeId: placeId,
+    //   totalCost: paymentIntent.totalCost,
+    //   paymentIntentId: paymentIntent.paymentIntentId,
+    // },
   });
 
   const onSubmit = async (formData: BookingFormData) => {

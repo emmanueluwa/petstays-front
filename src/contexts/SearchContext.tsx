@@ -2,13 +2,13 @@ import React, { useContext, useState } from "react";
 
 type SearchContext = {
   location: string;
-  bedrooms: string;
-  bathrooms: string;
+  bedrooms: number;
+  bathrooms: number;
   listingId: string;
   saveSearchValues: (
     location: string,
-    bedrooms: string,
-    bathrooms: string
+    bedrooms: number,
+    bathrooms: number
   ) => void;
 };
 
@@ -24,11 +24,11 @@ export const SearchContextProvider = ({
   const [location, setLocation] = useState<string>(
     () => sessionStorage.getItem("location") || ""
   );
-  const [bedrooms, setBedrooms] = useState<string>(
-    () => sessionStorage.getItem("bedrooms") || "1"
+  const [bedrooms, setBedrooms] = useState<number>(() =>
+    parseInt(sessionStorage.getItem("bedrooms") || "1")
   );
-  const [bathrooms, setBathrooms] = useState<string>(
-    () => sessionStorage.getItem("bathrooms") || "1"
+  const [bathrooms, setBathrooms] = useState<number>(() =>
+    parseInt(sessionStorage.getItem("bathrooms") || "1")
   );
   const [listingId, setListingId] = useState<string>(
     () => sessionStorage.getItem("listingId") || ""
@@ -36,8 +36,8 @@ export const SearchContextProvider = ({
 
   const saveSearchValues = (
     location: string,
-    bedrooms: string,
-    bathrooms: string,
+    bedrooms: number,
+    bathrooms: number,
     listingId?: string
   ) => {
     setLocation(location);
