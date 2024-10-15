@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { ListingType } from "../utils/types";
-import { BiBed } from "react-icons/bi";
-import { BiBath } from "react-icons/bi";
+import { BiBed, BiBath, BiArea, BiMap } from "react-icons/bi";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   listing: ListingType;
@@ -9,56 +11,58 @@ type Props = {
 
 const SearchResultsCard = ({ listing }: Props) => {
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] border border-slate-300 rounded-lg p-8 gap-8">
-      <div className="w-full h-[300px]">
-        <img
-          src={listing.images[0]}
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
-      <div className="grid grid-rows-[1fr_2fr_1fr]">
-        <div>
-          <div className="flex items-center">
-            <span className="ml-1 text-sm">{listing.area}</span>
+    <Card className="overflow-hidden">
+      <div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] gap-4">
+        <div className="relative h-[300px] xl:h-full">
+          <img
+            src={listing.images[0]}
+            alt={listing.title}
+            className="w-full h-full object-cover object-center"
+          />
+          <Badge className="absolute top-2 left-2 bg-teal-600 text-white">
+            {listing.area}
+          </Badge>
+        </div>
+        <CardContent className="flex flex-col justify-between p-4">
+          <div>
+            <h2 className="text-2xl font-bold mb-2 hover:text-teal-600 transition-colors">
+              <Link to={`/detail/£{listing._id}`}>{listing.title}</Link>
+            </h2>
+            <p className="text-gray-600 mb-4 line-clamp-3">
+              {listing.description}
+            </p>
           </div>
-          <Link
-            to={`/detail/${listing._id}`}
-            className="text-2xl font-bold cursor-pointer"
-          >
-            {listing.title}
-          </Link>
-        </div>
-
-        <div>
-          <div className="line-clamp-4">{listing.description}</div>
-        </div>
-
-        <div className="grid grid-cols-2 items-end whitespace-nowrap">
-          <div className="flex gap-1 items-center">
-            <span className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap">
-              {listing.bedrooms}
-              <span>
-                <BiBed />
-              </span>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <Badge variant="secondary" className="flex items-center gap-1">
+              <BiBed className="w-4 h-4" />
+              {listing.bedrooms}{" "}
+              {listing.bedrooms === 1 ? "Bedroom" : "Bedrooms"}
+            </Badge>
+            <Badge variant="secondary" className="flex items-center gap-1">
+              <BiBath className="w-4 h-4" />
+              {listing.bathrooms}{" "}
+              {listing.bathrooms === 1 ? "Bathroom" : "Bathrooms"}
+            </Badge>
+            <Badge variant="secondary" className="flex items-center gap-1">
+              <BiArea className="w-4 h-4" />
+              {listing.area} sqft
+            </Badge>
+            <Badge variant="secondary" className="flex items-center gap-1">
+              <BiMap className="w-4 h-4" />
+              {listing.location}
+            </Badge>
+          </div>
+          <CardFooter className="flex justify-between items-center p-0">
+            <span className="text-2xl font-bold text-teal-600">
+              £{listing.price}/month
             </span>
-            <span className="bg-slate-300 p-2 rounded-lg font-bold text-xs whitespace-nowrap">
-              {listing.bathrooms}
-              <BiBath />
-            </span>
-          </div>
-
-          <div className="flex flex-col items-end gap-1">
-            <span className="font-bold">{listing.price} per month</span>
-            <Link
-              to={`/detail/${listing._id}`}
-              className="bg-teal-600 text-white h-full p-2 font-bold text-xl max-w-fit hover:bg-teal-500"
-            >
-              View more
-            </Link>
-          </div>
-        </div>
+            <Button asChild className="bg-teal-600 hover:bg-teal-700">
+              <Link to={`/detail/£{listing._id}`}>View Details</Link>
+            </Button>
+          </CardFooter>
+        </CardContent>
       </div>
-    </div>
+    </Card>
   );
 };
 
