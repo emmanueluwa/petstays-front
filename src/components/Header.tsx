@@ -1,46 +1,101 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../contexts/AppContext";
 import Logout from "./Logout";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const { isLoggedIn } = useAppContext();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
-    <div className="bg-teal-600 py-6">
-      <div className="container mx-auto flex justify-between">
-        <span className="text-3xl text-white font-bold tracking-tight">
-          <Link to="/">PeteineStays.com</Link>
-        </span>
-        <span className="flex space-x-2">
-          {isLoggedIn ? (
-            <>
-              <Link
-                className="flex items-center text-white px-3 font-bold hover:bg-teal-400"
-                to="/my-bookings"
+    <header className="bg-teal-600 py-4 shadow-md">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center">
+          <Link
+            to="/"
+            className="text-2xl md:text-3xl text-white font-bold tracking-tight hover:text-teal-100 transition-colors"
+          >
+            PeteineStays.com
+          </Link>
+
+          <nav className="hidden md:flex space-x-4">
+            {isLoggedIn ? (
+              <>
+                <NavLink to="/my-bookings">My Bookings</NavLink>
+                <NavLink to="/my-places">My Places</NavLink>
+                <Logout />
+              </>
+            ) : (
+              <Button
+                asChild
+                variant="secondary"
+                className="bg-white text-teal-600 hover:bg-teal-100"
               >
-                My Bookings
-              </Link>
-              <Link
-                className="flex items-center text-white px-3 font-bold hover:bg-teal-400"
-                to="/my-places"
+                <Link to="/login">Login</Link>
+              </Button>
+            )}
+          </nav>
+
+          <Button
+            variant="ghost"
+            className="md:hidden text-white"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </Button>
+        </div>
+
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <nav className="md:hidden mt-4 flex flex-col space-y-2">
+            {isLoggedIn ? (
+              <>
+                <NavLink to="/my-bookings" onClick={toggleMenu}>
+                  My Bookings
+                </NavLink>
+                <NavLink to="/my-places" onClick={toggleMenu}>
+                  My Places
+                </NavLink>
+                <Logout onClick={toggleMenu} />
+              </>
+            ) : (
+              <Button
+                asChild
+                variant="secondary"
+                className="bg-white text-teal-600 hover:bg-teal-100"
+                onClick={toggleMenu}
               >
-                My Places
-              </Link>
-              <Logout />
-            </>
-          ) : (
-            <>
-              <Link
-                to="/login"
-                className="flex items-center bg-white text-teal-400 px-3 font-bold hover:bg-teal-900"
-              >
-                Login
-              </Link>
-            </>
-          )}
-        </span>
+                <Link to="/login">Login</Link>
+              </Button>
+            )}
+          </nav>
+        )}
       </div>
-    </div>
+    </header>
   );
 };
+
+const NavLink = ({
+  to,
+  children,
+  onClick,
+}: {
+  to: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+}) => (
+  <Link
+    to={to}
+    className="text-white font-semibold hover:text-teal-100 transition-colors px-3 py-2 rounded-md hover:bg-teal-500"
+    onClick={onClick}
+  >
+    {children}
+  </Link>
+);
 
 export default Header;
