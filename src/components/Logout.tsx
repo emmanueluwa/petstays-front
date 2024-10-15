@@ -32,7 +32,7 @@ const Logout: React.FC<LogoutProps> = ({ onClick }) => {
       setIsDialogOpen(false);
       if (onClick) onClick();
     },
-    onError: (error: Error) => {
+    onError: () => {
       showToast({
         message: "Failed to logout. Please try again.",
         type: "ERROR",

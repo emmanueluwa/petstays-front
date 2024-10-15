@@ -1,5 +1,5 @@
 import { PlaceType } from "../config/place-options-config";
-import { BookingFormData } from "../forms/BookingForm/BookingForm";
+// import { BookingFormData } from "../forms/BookingForm/BookingForm";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
 import {
@@ -263,23 +263,23 @@ export const createPaymentIntentRequest = async (
   return response.json();
 };
 
-export const createPlaceBookingRequest = async (formData: BookingFormData) => {
-  const response = await fetch(
-    `${API_BASE_URL}/api/places/${formData.placeId}/bookings`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    }
-  );
+// export const createPlaceBookingRequest = async (formData: BookingFormData) => {
+//   const response = await fetch(
+//     `${API_BASE_URL}/api/places/${formData.placeId}/bookings`,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       credentials: "include",
+//       body: JSON.stringify(formData),
+//     }
+//   );
 
-  if (!response.ok) {
-    throw new Error("Error booking place");
-  }
-};
+//   if (!response.ok) {
+//     throw new Error("Error booking place");
+//   }
+// };
 
 export const fetchMyBookingsRequest = async (): Promise<PlaceType[]> => {
   const response = await fetch(`${API_BASE_URL}/api/my-bookings`, {
