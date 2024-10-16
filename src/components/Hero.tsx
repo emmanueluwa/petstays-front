@@ -10,10 +10,6 @@ const Hero = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-bold mb-6 leading-tight">
             Find Your Perfect Pet-Friendly Home
           </h1>
-          <p className="text-xl text-teal-100 mb-8">
-            Discover comfortable spaces for you and your furry friends across
-            multiple areas.
-          </p>
           <Button
             asChild
             variant="secondary"
