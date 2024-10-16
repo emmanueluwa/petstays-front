@@ -3,6 +3,7 @@ import { PlaceType } from "../config/place-options-config";
 import { LoginFormData } from "../pages/Login";
 import { RegisterFormData } from "../pages/Register";
 import {
+  AreaType,
   ListingSearchResponse,
   ListingType,
   PaymentIntentResponse,
@@ -210,6 +211,15 @@ export const fetchPlacesRequest = async (): Promise<PlaceType[]> => {
 
 export const fetchListingsRequest = async (): Promise<ListingType[]> => {
   const response = await fetch(`${API_BASE_URL}/api/listings`);
+  if (!response.ok) {
+    throw new Error("Error fetching places");
+  }
+
+  return response.json();
+};
+
+export const fetchAreasRequest = async (): Promise<AreaType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/listings/locations`);
   if (!response.ok) {
     throw new Error("Error fetching places");
   }

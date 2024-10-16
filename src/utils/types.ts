@@ -22,6 +22,11 @@ export type ListingType = {
   url: string;
 };
 
+export type AreaType = {
+  name: string;
+  _id: string;
+};
+
 export type PlaceSearchResponse = {
   data: PlaceType[];
   pagination: {

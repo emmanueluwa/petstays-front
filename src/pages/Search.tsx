@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useSearchContext } from "../contexts/SearchContext";
 import * as apiClient from "../api/api-client";
@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Loader2, Filter } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const Search = () => {
   const search = useSearchContext();
@@ -17,6 +18,15 @@ const Search = () => {
   const [selectedPrice, setSelectedPrice] = useState<number | undefined>();
   const [sortOption, setSortOption] = useState<string>();
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const locationParam = params.get("location");
+    if (locationParam) {
+      search.saveSearchValues(locationParam, search.bedrooms, search.bathrooms);
+    }
+  }, [location.search]);
 
   const searchParams = {
     location: search.location,
@@ -29,7 +39,10 @@ const Search = () => {
 
   const { data: listingData, isLoading } = useQuery(
     ["searchListings", searchParams],
-    () => apiClient.searchListingsRequest(searchParams)
+    () => apiClient.searchListingsRequest(searchParams),
+    {
+      enabled: !!search.location,
+    }
   );
 
   return (

@@ -11,6 +11,7 @@ import Detail from "./pages/Detail";
 // import Booking from "./pages/Booking";
 import MyBookings from "./pages/MyBookings";
 import Home from "./pages/Home";
+import Areas from "./pages/Areas";
 
 const AppRoutes = () => {
   const { isLoggedIn } = useAppContext();
@@ -22,6 +23,14 @@ const AppRoutes = () => {
         element={
           <Layout>
             <Home />
+          </Layout>
+        }
+      />
+      <Route
+        path="/areas"
+        element={
+          <Layout>
+            <Areas />
           </Layout>
         }
       />
