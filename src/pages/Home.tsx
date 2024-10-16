@@ -4,7 +4,7 @@ import LatestListingsCard from "../components/LatestListingsCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 const Home = () => {

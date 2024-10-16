@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import * as apiClient from "../api/api-client";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
